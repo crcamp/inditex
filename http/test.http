@@ -1,0 +1,1 @@
+GET http://localhost:25000/api/prices?applicationDate=2020-06-12T10:00:00&productId=35455&brandId=1
