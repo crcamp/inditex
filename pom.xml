@@ -11,8 +11,9 @@
   <name>demo</name>
 
   <properties>
-    <maven.compiler.source>17</maven.compiler.source>
-    <maven.compiler.target>17</maven.compiler.target>
+    <java.version>17</java.version>
+    <maven.compiler.release>17</maven.compiler.release>
+    <lombok.version>1.18.36</lombok.version>
   </properties>
 
   <parent>
@@ -73,8 +74,30 @@
   <build>
     <plugins>
       <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <annotationProcessorPaths>
+            <path>
+              <groupId>org.projectlombok</groupId>
+              <artifactId>lombok</artifactId>
+              <version>${lombok.version}</version>
+            </path>
+          </annotationProcessorPaths>
+        </configuration>
+      </plugin>
+
+      <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
+        <configuration>
+          <excludes>
+            <exclude>
+              <groupId>org.projectlombok</groupId>
+              <artifactId>lombok</artifactId>
+            </exclude>
+          </excludes>
+        </configuration>
       </plugin>
 
       <plugin>
@@ -87,8 +110,8 @@
             <configuration>
               <inputSpec>${project.basedir}/src/main/resources/openapi/prices-api.yaml</inputSpec>
               <generatorName>spring</generatorName>
-              <apiPackage>com.gfx.prices.infrastructure.api</apiPackage>
-              <modelPackage>com.gfx.prices.infrastructure.dto</modelPackage>
+              <apiPackage>com.gfx.infrastructure.api</apiPackage>
+              <modelPackage>com.gfx.infrastructure.dto</modelPackage>
               <typeMappings>
                 <typeMapping>DateTime=java.time.LocalDateTime</typeMapping>
               </typeMappings>

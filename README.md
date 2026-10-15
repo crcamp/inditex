@@ -4,7 +4,7 @@
 
 - Java 17
 - Spring Boot 3.3.4
-- Maven 3.10.0
+- Maven 3.9.x
 
 ---
 
@@ -15,26 +15,24 @@ Arquitectura hexagonal (Puertos y Adaptadores):
 ```
 com.gfx
 │
-├── common/
-│   ├── exception/          ← PriceNotFoundException
-│   └── mapper/             ← mapea entity ↔ domain ↔ response
-│
 ├── domain/
 │   ├── model/              ← record Price (sin dependencias de framework)
-│   └── repository/         ← puerto de salida (interfaz de dominio)
+│   ├── exception/          ← PriceNotFoundException
+│   ├── usecase/            ← puerto de entrada (GetPriceUseCase)
+│   └── repository/         ← puerto de salida (PriceRepository)
 │
 ├── application/
-│   ├── usecase/            ← puerto de entrada
-│   └── service/            ← implementa el caso de uso, llama al puerto de dominio
+│   └── usecase/            ← GetPriceUseCaseImpl: implementa el puerto de entrada
 │
 └── infrastructure/
-    ├── controller/         ← adaptador REST de entrada
-    ├── dto/                ← como se genera con API first, no se implementa en este caso
-    ├── persistence/
-    │   ├── entity/         ← entidad JPA
-    │   ├── PriceJpaRepository
-    │   └── PricePersistenceAdapter  ← implementa el puerto de dominio
-    └── openapi/            ← fuentes generadas (target/)
+    ├── api/                ← interfaz PricesApi (generada en target/)
+    ├── dto/                ← PriceResponse, PriceException (generados en target/)
+    ├── controller/         ← PriceController, PriceResponseMapper, GlobalExceptionHandler
+    └── persistence/
+        ├── entity/         ← entidad JPA
+        ├── PriceJpaRepository
+        ├── PriceEntityMapper
+        └── PricePersistenceAdapter  ← implementa el puerto de salida
 ```
 
 ---

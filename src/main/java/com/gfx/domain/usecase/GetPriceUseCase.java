@@ -1,4 +1,4 @@
-package com.gfx.application.usecase;
+package com.gfx.domain.usecase;
 
 import java.time.LocalDateTime;
 
