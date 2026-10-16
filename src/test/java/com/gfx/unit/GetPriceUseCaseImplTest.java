@@ -12,8 +12,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.gfx.application.service.GetPriceService;
-import com.gfx.common.exception.PriceNotFoundException;
+import com.gfx.application.usecase.GetPriceUseCaseImpl;
+import com.gfx.domain.exception.PriceNotFoundException;
 import com.gfx.domain.model.Price;
 import com.gfx.domain.repository.PriceRepository;
 
@@ -21,13 +21,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 @ExtendWith(MockitoExtension.class)
-public class GetPriceServiceTest {
+public class GetPriceUseCaseImplTest {
 
     @Mock
     private PriceRepository priceRepository;
 
     @InjectMocks
-    private GetPriceService service;
+    private GetPriceUseCaseImpl service;
 
     private static final LocalDateTime DATE = LocalDateTime.of(2020, 6, 14, 10, 0);
     private static final Long PRODUCT_ID = 35455L;
